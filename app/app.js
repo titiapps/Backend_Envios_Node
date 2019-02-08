@@ -2,7 +2,7 @@
 /* -----------------------LIBRERIAS E IMPORTACIONES Y CONFIGURACIONES------------------------- */
 const express = require("express");
 const bodyparser = require("body-parser");
-const { rutasprueba, rutasusuarios } = require("./routes");
+const { rutasprueba, rutasusuario } = require("./routes");
 /* ------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- */
 const app = express();
@@ -24,6 +24,6 @@ app.use(function(req, res, next) {
 
 //* RUTAS A USARSE */
 app.use("/api/v1/", rutasprueba);
-app.use("/api/v1/usuario/", rutasusuarios);
+app.use("/api/v1/usuario/", rutasusuario);
 
 module.exports = app;
