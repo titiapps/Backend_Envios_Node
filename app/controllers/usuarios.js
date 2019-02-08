@@ -71,3 +71,11 @@ exports.crearUsuario = (req, res) => {
       .send({ ok: true, usuario, mensaje: "Usuario creado de manera exitosa" });
   });
 };
+
+//funcion para eliminar usuario
+
+exports.eliminarUsuario = (req, res) => {
+  return res
+    .status(200)
+    .send({ mensaje: "ESTOY ENTRANDO A LA FUNCION DE ELIMINAR" });
+};
