@@ -1,5 +1,6 @@
 let Usuario = require("../models/usuario");
 let bcrypt = require("bcryptjs");
+let jwt = require("jsonwebtoken");
 
 //Este metodo nos permite verificar si el usuario que se esta intentando loguear sus credenciales
 //son correctas  o no
@@ -31,6 +32,16 @@ exports.login = (req, res) => {
       });
     }
 
-    return res.status(200).send({ message: "hasta ahorita vamos bien" });
+    let token = jwt.sign({ usuario: usuario_bus }, process.env.SEED, {
+      expiresIn: 14000
+    });
+
+    usuario_bus.password = "-----------";
+
+    return res.status(200).send({
+      token,
+      usuario: usuario_bus,
+      img_status: "https://http.cat/202"
+    });
   });
 };
