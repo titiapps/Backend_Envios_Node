@@ -14,5 +14,11 @@ routes.delete(
   middlewareAutorizacion.verificarRoloUsuario,
   ControllerUsuario.eliminarUsuario
 ); //Esta es la ruta para eliminar usuario
+routes.put(
+  "/usuario/:id",
+  middlewareAutorizacion.verificarToken,
+  middlewareAutorizacion.verificarRoloUsuario,
+  ControllerUsuario.actualizarUsuario
+);
 
 module.exports = routes;

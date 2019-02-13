@@ -5,9 +5,9 @@ exports.verificarToken = (req, res, next) => {
 
   jwt.verify(token, process.env.SEED, (error, datos) => {
     if (error) {
-      res.send.status(401).send({
+      res.status(401).send({
         ok: false,
-        error,
+        error ,
         mensaje: "Token Incorrecto",
         img_status: "https://http.cat/401"
       });
