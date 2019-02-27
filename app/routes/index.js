@@ -3,8 +3,10 @@
 const rutasprueba = require("./rutaprueba");
 const rutasusuario = require("./usuarios_rutas");
 const rutasautorizacion = require("./autorizacion");
+const rutaspaqueterias = require("./envios/paqueterias");
 module.exports = {
   rutasprueba,
   rutasusuario,
-  rutasautorizacion
+  rutasautorizacion,
+  rutaspaqueterias
 };
