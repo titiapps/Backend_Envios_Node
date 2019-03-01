@@ -11,8 +11,8 @@ exports.cotizacion = (req, res) => {
     company: origen.persona,
     street1: origen.street + " " + origen.houseNumber,
     street2: origen.street2,
-    country: origen.country,
-    city: origen.county,
+    country: origen.countryCode, ///origen.countryCode
+    city: origen.city, //origen.city
     state: origen.state,
     zip: origen.postalCode,
     phone: ""
@@ -24,8 +24,10 @@ exports.cotizacion = (req, res) => {
     company: destino.persona,
     street1: destino.street + " " + destino.houseNumber,
     street2: destino.street2,
-    country: destino.country,
-    city: destino.county,
+    /*  country: destino.country,
+    city: destino.county, */
+    country: destino.countryCode,
+    city: origen.city,
     state: destino.state,
     zip: destino.postalCode,
     phone: ""
@@ -34,10 +36,10 @@ exports.cotizacion = (req, res) => {
   toAddress.save().then(console.log);
 
   const parcel = new api.Parcel({
-    length: 9,
-    width: 6,
-    height: 2,
-    weight: 10
+    length: paquete_ent.longitud,
+    width: paquete_ent.anchura,
+    height: paquete_ent.altura,
+    weight: paquete_ent.peso
   });
 
   parcel.save().then(console.log);

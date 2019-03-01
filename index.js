@@ -18,6 +18,7 @@ app.listen(puerto, () => {
 mongoose.connect(url_mongo, { useNewUrlParser: true }, err => {
   if (err) {
     console.log("Hay un problema al levantar el servidor de mongo");
+  } else {
+    console.log("Servidor de mongo levantado de manera correcta");
   }
-  console.log("Servidor de mongo levantado de manera correcta");
 });
