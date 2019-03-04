@@ -4,7 +4,7 @@ const mongovalidator = require("mongoose-unique-validator");
 let Schema = mongoose.Schema;
 
 let rolesPermitidos = {
-  values: ["Administrador","Administrador_Dev", "Empleado", "Usuario"]
+  values: ["Administrador", "Administrador_Dev", "Empleado", "Usuario"]
 };
 
 let UsuarioSchema = new Schema({
