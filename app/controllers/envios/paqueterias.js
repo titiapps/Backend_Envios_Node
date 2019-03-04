@@ -1,3 +1,5 @@
+"use strict";
+
 const EasyPost = require("@easypost/api");
 
 exports.cotizacion = (req, res) => {
@@ -51,15 +53,34 @@ exports.cotizacion = (req, res) => {
 
   shipment.save().then(s => {
     console.log("---------------------------------------");
-    /*  res.status(200).send({ message: data }); */
-    s.buy(shipment.lowestRate(["DHLExpress"], ["DomesticExpress"]))
-      .then(respfinal => {
-        return res.send({ mensaje: respfinal });
+    if (s.rates.length > 0) {
+      let tarifas = s.rates.filter(tarifa_valores => {
+        if (tarifa_valores.currency === "MXN" && tarifa_valores.rate > 0.1) {
+          return tarifa_valores;
+        }
+      });
+      return res.status(200).send({ tarifas });
+    } else {
+      return res.status(400).send({ message: "no hay tarifa" });
+    }
+  });
+};
+
+exports.comprar = (req, res) => {
+  let { id_rate, id_shp } = req.query;
+
+  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
+
+  api.Shipment.retrieve(id_shp).then(shipment_find => {
+    shipment_find
+      .buy((rate = { id: id_rate }))
+      .then(compra => {
+        let compra_envio = compra.postage_label;
+        return res.send({ mensaje: compra_envio });
       })
       .catch(err => {
         return res.send({ err: err });
       });
   });
+  /*   console.log(ship); */
 };
-
-exports.comprar = (req, res) => {};
