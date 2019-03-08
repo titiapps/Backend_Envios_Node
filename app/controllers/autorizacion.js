@@ -40,6 +40,7 @@ exports.login = (req, res) => {
 
     return res.status(200).send({
       token,
+      id: usuario_bus._id,
       usuario: usuario_bus,
       img_status: "https://http.cat/202"
     });
