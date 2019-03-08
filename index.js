@@ -15,7 +15,7 @@ app.listen(puerto, () => {
 });
 
 //aqui se levanta el servidor de mongo
-mongoose.connect(url_mongo , { useNewUrlParser: true }, err => {
+mongoose.connect(url_mongo, { useNewUrlParser: true }, err => {
   if (err) {
     console.log("Hay un problema al levantar el servidor de mongo");
   } else {

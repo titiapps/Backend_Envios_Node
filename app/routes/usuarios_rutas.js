@@ -2,7 +2,7 @@ const express = require("express");
 
 const routes = express.Router();
 
-const ControllerUsuario = require("../controllers/usuarios");
+const ControllerUsuario = require("../controllers/usuarios/usuarios");
 const middlewareAutorizacion = require("../middlewares/autorizacion");
 
 //Devolucion de todos los usuarios dados de alta en el sistema
