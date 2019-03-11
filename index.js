@@ -14,8 +14,6 @@ app.listen(puerto, () => {
   console.log("SERVIDOR LEVANTADO EN EL PUERTO:" + process.env.PORT);
 });
 
-
-
 //aqui se levanta el servidor de mongo
 mongoose.connect(url_mongo, { useNewUrlParser: true }, err => {
   if (err) {
@@ -23,4 +21,6 @@ mongoose.connect(url_mongo, { useNewUrlParser: true }, err => {
   } else {
     console.log("Servidor de mongo levantado de manera correcta");
   }
-}); 
+  
+});
+

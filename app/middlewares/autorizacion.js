@@ -7,7 +7,7 @@ exports.verificarToken = (req, res, next) => {
     if (error) {
       res.status(401).send({
         ok: false,
-        error ,
+        error,
         mensaje: "Token Incorrecto",
         img_status: "https://http.cat/401"
       });
@@ -17,6 +17,12 @@ exports.verificarToken = (req, res, next) => {
     }
   });
 };
+
+
+
+
+//Este middleware nos permite renovar el token en caso de que valga madre
+
 //Este nos permite saber si es usuario tiene un rol correcto o
 //si es el mismo usuario que quiere realizar una accion con su perfil
 

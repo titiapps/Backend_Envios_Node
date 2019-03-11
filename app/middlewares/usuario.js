@@ -1,1 +1,0 @@
-exports.usuarioAccionesPermiso = (req, res) => {};
