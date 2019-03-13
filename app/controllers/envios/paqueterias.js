@@ -59,7 +59,7 @@ exports.cotizacion = (req, res) => {
           return tarifa_valores;
         }
       });
-      return res.status(200).send({ tarifas });
+      return res.status(200).send({ /*tarifas*/ s });
     } else {
       return res.status(400).send({ message: "no hay tarifa" });
     }
@@ -84,3 +84,37 @@ exports.comprar = (req, res) => {
   });
   /*   console.log(ship); */
 };
+
+
+exports.verificarDireccion = (req,res) =>{
+
+  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
+
+  const verifiableAddress = new api.Address({
+    verify: ['delivery'],
+    company: "Liverpool",
+    street1: "Natal 580",
+    street2: "",
+    country: "MEX",
+    city: "Gustavo A Madero",
+    state: "CDMX",
+    zip: "07730",
+  });
+  
+  verifiableAddress.save().then((addr) => {
+    // verifiableAddress is updated, and also passed into
+    // the promise resolve.
+  return res.send({"mensaje":addr});
+    // 417 Montgomery Street
+  
+/*     console.log(addr.verifications); */
+    /*
+    { delivery:
+     { success: true,
+       errors: [],
+         } }
+       */
+  });
+
+
+}
