@@ -21,4 +21,6 @@ mongoose.connect(url_mongo, { useNewUrlParser: true }, err => {
   } else {
     console.log("Servidor de mongo levantado de manera correcta");
   }
+  
 });
+
