@@ -4,9 +4,11 @@ const rutasprueba = require("./rutaprueba");
 const rutasusuario = require("./usuarios_rutas");
 const rutasautorizacion = require("./autorizacion");
 const rutaspaqueterias = require("./envios/paqueterias");
+const rutaspagos = require("./pagos/pagos");
 module.exports = {
   rutasprueba,
   rutasusuario,
   rutasautorizacion,
-  rutaspaqueterias
+  rutaspaqueterias,
+  rutaspagos
 };

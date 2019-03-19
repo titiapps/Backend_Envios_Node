@@ -59,7 +59,7 @@ exports.cotizacion = (req, res) => {
           return tarifa_valores;
         }
       });
-      return res.status(200).send({ /*tarifas*/ s });
+      return res.status(200).send({ tarifas });
     } else {
       return res.status(400).send({ message: "no hay tarifa" });
     }

@@ -6,7 +6,8 @@ const {
   rutasprueba,
   rutasusuario,
   rutasautorizacion,
-  rutaspaqueterias
+  rutaspaqueterias,
+  rutaspagos
 } = require("./routes");
 /* ------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- */
@@ -32,5 +33,6 @@ app.use("/api/v1/", rutasprueba);
 app.use("/api/v1/usuario/", rutasusuario);
 app.use("/api/v1/autorizacion/", rutasautorizacion);
 app.use("/api/v1/paqueterias/", rutaspaqueterias);
+app.use("/api/v1/conekta/", rutaspagos);
 
 module.exports = app;
