@@ -33,7 +33,7 @@ exports.login = (req, res) => {
     }
 
     let token = jwt.sign({ usuario: usuario_bus }, process.env.SEED, {
-      expiresIn: 14000
+      expiresIn: 14400
     });
 
     usuario_bus.password = "-----------";
@@ -43,7 +43,7 @@ exports.login = (req, res) => {
       id: usuario_bus._id,
       usuario: usuario_bus,
       img_status: "https://http.cat/202",
-      menu: obtenerMenu(usuario_bus.rol)
+    /*   menu: obtenerMenu(usuario_bus.rol) */
     });
   });
 };
