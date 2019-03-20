@@ -1,10 +1,11 @@
 var conekta = require("conekta");
 
 exports.pagarconekta = (req, res) => {
-  let { nombre, email, telefono, producto, precio, cantidad } = req.body;
+  let { producto, precio, cantidad } = req.body;
   let { token_public_conekta } = req.headers;
+  let usuario = req.usuario_token_correcto;
+  let { nombre, email, telefono } = usuario;
 
-  console.log(telefono);
   //necesito recibir nombre,email,telefono,producto,precio,cantidad,token
   conekta.api_key = process.env.API_KEY_CONEKTA;
   conekta.locale = "es";
@@ -14,7 +15,7 @@ exports.pagarconekta = (req, res) => {
       customer_info: {
         name: nombre,
         email: email,
-        phone: ""
+        phone: telefono
       },
       line_items: [
         {
@@ -35,13 +36,13 @@ exports.pagarconekta = (req, res) => {
       }
 
       let datospago = respuesta.toObject();
-
-      return res.status(200).send({
-        id: datospago.id,
-        monto: datospago.amount,
-        moneda: datospago.currency,
-        datospago
-      });
+      setTimeout(() => {
+        return res.status(200).send({
+          id: datospago.id,
+          monto: datospago.amount,
+          moneda: datospago.currency
+        });
+      }, 1000);
     }
   );
 };

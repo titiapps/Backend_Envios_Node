@@ -13,7 +13,7 @@ exports.getUsuarios = (req, res) => {
   //DEVUELVE SOLO LOS CAMPOS QUE YO LE ESTOY INDICANDO
   Usuario.find(
     {},
-    "nombre apellido_paterno apellido_materno email rol activo password"
+    "nombre apellido_paterno apellido_materno email telefono rol activo password"
   )
     .skip(desde)
     .limit(5)
@@ -51,6 +51,7 @@ exports.crearUsuario = (req, res) => {
     apellido_paterno,
     apellido_materno,
     email,
+    telefono,
     password
   } = req.body;
 
@@ -62,6 +63,7 @@ exports.crearUsuario = (req, res) => {
     apellido_paterno,
     apellido_materno,
     email,
+    telefono,
     password,
     activo
   });
@@ -155,6 +157,7 @@ exports.actualizarUsuario = (req, res) => {
     apellido_materno,
     email,
     password,
+    telefono,
     rol,
     activo
   } = req.body;
@@ -198,6 +201,9 @@ exports.actualizarUsuario = (req, res) => {
     usuarioActualizar.activo =
       activo === undefined ? usuarioActualizar.activo : activo;
 
+      usuarioActualizar.telefono =
+      telefono === undefined ? usuarioActualizar.telefono : telefono;
+
     usuarioActualizar.password =
       password === undefined
         ? usuarioActualizar.password
@@ -229,7 +235,4 @@ exports.actualizarUsuario = (req, res) => {
   });
 };
 
-function obtenerMenuUsuarios() {
-
-  
-}
+function obtenerMenuUsuarios() {}
