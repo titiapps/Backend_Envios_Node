@@ -13,4 +13,4 @@ let PagoSchema = new Schema({
   forma_pago: { type: String, enum: pagosValidos }
 });
 
-module.exports = mongoose.model("movimiento", PagoSchema);
+module.exports = mongoose.model("pago", PagoSchema);

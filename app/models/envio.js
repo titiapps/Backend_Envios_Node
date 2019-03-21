@@ -8,11 +8,11 @@ var PaqueteriasValidas = {
 };
 
 let EnviosSchema = new Schema({
-  /* fecha_movimiento: { type: Date } */
   o_origen: { type: Schema.Types.ObjectId, ref: "direccion" },
   o_destino: { type: Schema.Types.ObjectId, ref: "direccion" },
   paqueteria: { type: String, enum: PaqueteriasValidas },
-  num_seg: { type: String }
+  num_seg: { type: String },
+  etiqueta: { tye: String }
 });
 
 EnviosSchema.plugin(mongovalidator, {

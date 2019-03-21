@@ -4,14 +4,17 @@ const mongovalidator = require("mongoose-unique-validator");
 let Schema = mongoose.Schema;
 
 let DireccionSchema = new Schema({
-  company: { type: String },
+  persona: { type: String },
   street1: { type: String },
   street2: { type: String },
-  country: { type: String },
+  houseNumber: { type: String },
   city: { type: String },
   state: { type: String },
-  zip: { type: Number },
-  phone: { type: Number }
+  postalCode: { type: String },
+  country: { type: String },
+  county: { type: String },
+  countryCode: { type: Number },
+  district: { type: String }
 });
 
 DireccionSchema.plugin(mongovalidator, {
