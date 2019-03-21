@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 
 let DireccionSchema = new Schema({
   persona: { type: String },
-  street1: { type: String },
+  street: { type: String },
   street2: { type: String },
   houseNumber: { type: String },
   city: { type: String },
@@ -13,10 +13,9 @@ let DireccionSchema = new Schema({
   postalCode: { type: String },
   country: { type: String },
   county: { type: String },
-  countryCode: { type: Number },
+  countryCode: { type: String },
   district: { type: String }
 });
-
 
 DireccionSchema.plugin(mongovalidator, {
   message: "El {PATH} debe de ser unico"

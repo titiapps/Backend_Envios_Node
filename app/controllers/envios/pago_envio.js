@@ -1,20 +1,17 @@
 let Direccion = require("../../models/direccion"); //modelo de Direccion
 
 exports.pago_envio = (req, res) => {
-  let body = req.body;
+  let { origen, destino } = req.body;
+
   let id_origen = "";
-  let id_destino = "";s
+  let id_destino = "";
 
-  let nuevaDireccionOrigen = new Direccion({
-    nombre,
-    apellido_paterno,
-    apellido_materno,
-    email,
-    telefono,
-    password,
-    activo
+  let nuevaDireccionOrigen = new Direccion(origen);
+
+  nuevaDireccionOrigen.save((err, origen_respuesta) => {
+    if (err) {
+      return res.send({ err: err });
+    }
+    return res.send({ mensaje: "prueba", origen, destino, origen_respuesta });
   });
-  
-
-  return res.send({ mensaje: "prueba", body });
 };
