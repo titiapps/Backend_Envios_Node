@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/cotizaEnvio", PaqueteriasController.cotizacion);
 router.post("/generaCompra", PaqueteriasController.comprar);
-router.get("/pagoEnvio", PagoEnvioController.pago_envio);
 router.get("/verificarDireccion", PaqueteriasController.verificarDireccion);
+router.post("/pagoEnvio", PagoEnvioController.pago_envio);
 
 module.exports = router;

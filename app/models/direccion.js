@@ -17,8 +17,9 @@ let DireccionSchema = new Schema({
   district: { type: String }
 });
 
+
 DireccionSchema.plugin(mongovalidator, {
   message: "El {PATH} debe de ser unico"
 });
 
-module.exports = mongoose.model("usuario", DireccionSchema);
+module.exports = mongoose.model("direccion", DireccionSchema);
