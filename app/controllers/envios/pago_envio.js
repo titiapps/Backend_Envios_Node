@@ -7,11 +7,19 @@ exports.pago_envio = (req, res) => {
   let id_destino = "";
 
   let nuevaDireccionOrigen = new Direccion(origen);
-
+  let nuevaDireccionDestino = new Direccion(destino);
   nuevaDireccionOrigen.save((err, origen_respuesta) => {
     if (err) {
-      return res.send({ err: err });
+      return res.send({ err, mensaje: "Error en el origen" });
     }
-    return res.send({ mensaje: "prueba", origen, destino, origen_respuesta });
+    id_origen = origen_respuesta.id;
+  });
+
+  nuevaDireccionDestino.save((err, destino_respuesta) => {
+    if (err) {
+      return res.send({ err, mensaje: "Error en el destino" });
+    }
+    id_destino = destino_respuesta.id;
+    return res.send({ id_origen, destino_respuesta });
   });
 };
