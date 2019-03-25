@@ -9,7 +9,7 @@ let Schema = mongoose.Schema;
 
 let PagoSchema = new Schema({
   id_pago_plataforma: { type: String },
-  monto: { type: Number },
+  monto: { type: Number, required: true },
   forma_pago: { type: String, enum: pagosValidos }
 });
 

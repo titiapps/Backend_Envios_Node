@@ -7,11 +7,11 @@ let Schema = mongoose.Schema;
 }; */
 
 let MovimientoSchema = new Schema({
-  o_usuario: { type: Schema.Types.ObjectId, ref: "usuario" },
-  o_envio: { type: Schema.Types.ObjectId, ref: "envio" },
-  o_pago: { type: Schema.Types.ObjectId, ref: "pago" },
-  estatus: { type: String /* , enum: listaEstatus */ },
-  fecha_movimiento: { type: Date }
+  id_usuario: { type: Schema.Types.ObjectId, ref: "usuario" },
+  id_envio: { type: Schema.Types.ObjectId, ref: "envio" },
+  id_pago: { type: Schema.Types.ObjectId, ref: "pago" },
+  num_guia: { type: String },
+  num_etiqueta: { type: String }
 });
 
 UsuarioSchema.plugin(mongovalidator, {

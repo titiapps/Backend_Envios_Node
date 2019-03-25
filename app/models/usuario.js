@@ -24,7 +24,6 @@ let UsuarioSchema = new Schema({
   },
   telefono: {
     type: String,
-    unique: true,
     required: [true, "El numero de telefono es obligatorio"]
   },
   password: {

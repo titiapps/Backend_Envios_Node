@@ -4,8 +4,9 @@ exports.pagarconekta = (req, res) => {
   let { producto, precio, cantidad } = req.body;
   let { token_public_conekta } = req.headers;
   let usuario = req.usuario_token_correcto;
-  let { nombre, email, telefono } = usuario;
 
+  let { nombre, email, telefono } = usuario;
+  
   //necesito recibir nombre,email,telefono,producto,precio,cantidad,token
   conekta.api_key = process.env.API_KEY_CONEKTA;
   conekta.locale = "es";
