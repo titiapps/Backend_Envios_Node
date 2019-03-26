@@ -13,9 +13,11 @@ let EnviosSchema = new Schema({
   paqueteria: { type: String },
   servicio: { type: String },
   carrier_account_id: { type: String },
-  shipment_id: { type: String }
-  /*  num_seg: { type: String },
-  etiqueta: { tye: String } */
+  shipment_id: { type: String },
+  paquete_longitud: { type: Number },
+  paquete_anchura: { type: Number },
+  paquete_altura: { type: Number },
+  paquete_peso: { type: Number }
 });
 
 EnviosSchema.plugin(mongovalidator, {

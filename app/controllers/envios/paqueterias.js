@@ -4,9 +4,9 @@ const EasyPost = require("@easypost/api");
 
 exports.cotizacion = (req, res) => {
   let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
-  const origen = req.body.origen;
-  const destino = req.body.destino;
-  const paquete_ent = req.body.paquete;
+  let origen = req.body.origen;
+  let destino = req.body.destino;
+  let paquete = req.body.paquete;
 
   const fromAddress = new api.Address({
     company: origen.persona,
@@ -15,8 +15,8 @@ exports.cotizacion = (req, res) => {
     country: origen.countryCode,
     city: origen.city,
     state: origen.state,
-    zip: origen.postalCode,
-    phone: "2223344552"
+    zip: origen.postalCode
+    /*   phone: "2223344552" */ //consultar este campo con el ale 
   });
 
   fromAddress.save().then(() => {});
@@ -30,17 +30,17 @@ exports.cotizacion = (req, res) => {
     country: destino.countryCode,
     city: origen.city,
     state: destino.state,
-    zip: destino.postalCode,
-    phone: "2223344552"
+    zip: destino.postalCode
+    /* phone: "2223344552" */
   });
 
   toAddress.save().then(() => {});
 
   const parcel = new api.Parcel({
-    length: paquete_ent.longitud,
-    width: paquete_ent.anchura,
-    height: paquete_ent.altura,
-    weight: paquete_ent.peso
+    length: paquete.paquete_longitud,
+    width: paquete.paquete_anchura,
+    height: paquete.paquete_altura,
+    weight: paquete.paquete_peso
   });
 
   parcel.save().then(() => {});
@@ -85,29 +85,27 @@ exports.comprar = (req, res) => {
   /*   console.log(ship); */
 };
 
-
-exports.verificarDireccion = (req,res) =>{
-
+exports.verificarDireccion = (req, res) => {
   let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
 
   const verifiableAddress = new api.Address({
-    verify: ['delivery'],
+    verify: ["delivery"],
     company: "Liverpool",
     street1: "Natal 580",
     street2: "",
     country: "MEX",
     city: "Gustavo A Madero",
     state: "CDMX",
-    zip: "07730",
+    zip: "07730"
   });
-  
-  verifiableAddress.save().then((addr) => {
+
+  verifiableAddress.save().then(addr => {
     // verifiableAddress is updated, and also passed into
     // the promise resolve.
-  return res.send({"mensaje":addr});
+    return res.send({ mensaje: addr });
     // 417 Montgomery Street
-  
-/*     console.log(addr.verifications); */
+
+    /*     console.log(addr.verifications); */
     /*
     { delivery:
      { success: true,
@@ -115,6 +113,4 @@ exports.verificarDireccion = (req,res) =>{
          } }
        */
   });
-
-
-}
+};

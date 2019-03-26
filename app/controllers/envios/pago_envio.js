@@ -6,13 +6,21 @@ exports.pago_envio = (req, res) => {
   //variables
   let usuario = req.usuario_token_correcto;
   let id_usuario = usuario._id;
-  let { origen, destino, pagoDataInfo, paqueteSeleccionado } = req.body;
+  let { origen, destino, pagoDataInfo, tarifa_Paquete_Seleccionada } = req.body;
+  let {
+    paquete_longitud,
+    paquete_anchura,
+    paquete_altura,
+    paquete_peso
+  } = tarifa_Paquete_Seleccionada.paquete; //aqui se recibe que onda con el paquete
+
   let envio = {
-    paqueteria: paqueteSeleccionado.paqueteria,
-    servicio: paqueteSeleccionado.servicio,
-    carrier_account_id: paqueteSeleccionado.carrier_account_id,
-    shipment_id: paqueteSeleccionado.shipment_id
+    paqueteria: tarifa_Paquete_Seleccionada.paqueteria,
+    servicio: tarifa_Paquete_Seleccionada.servicio,
+    carrier_account_id: tarifa_Paquete_Seleccionada.carrier_account_id,
+    shipment_id: tarifa_Paquete_Seleccionada.shipment_id
   };
+
   let id_origen = "";
   let id_destino = "";
   let id_pago_guardado = "";
@@ -40,7 +48,11 @@ exports.pago_envio = (req, res) => {
                 paqueteria: envio.paqueteria,
                 servicio: envio.servicio,
                 carrier_account_id: envio.carrier_account_id,
-                shipment_id: envio.shipment_id
+                shipment_id: envio.shipment_id,
+                paquete_longitud,
+                paquete_anchura,
+                paquete_altura,
+                paquete_peso
               };
               guardarEnvio(envioguardar)
                 .then(envioGuardado => {
@@ -67,11 +79,9 @@ exports.pago_envio = (req, res) => {
   if (err_origen !== null)
     return regresarError(err_pago, res, "Hubo un error al guardar el origen");
   if (err_destino !== null)
-    return regresarError(
-      err_destino,
-      res,
-      "Hubo un error al guardar el destino"
-    );
+    return regresarError(err_destino, res, "Error al guardar el destino");
+  if (err_envio !== null)
+    return regresarError(err_envio, res, "Hubo un error al guardar el envio");
 };
 
 /* ============================================= */
