@@ -6,12 +6,13 @@ const MiddlewareAutorizacion = require("../../middlewares/autorizacion");
 const router = express.Router();
 
 router.post("/cotizaEnvio", PaqueteriasController.cotizacion);
-router.post("/generaCompra", PaqueteriasController.comprar);
+
 router.get("/verificarDireccion", PaqueteriasController.verificarDireccion);
 router.post(
   "/pagoEnvio",
   MiddlewareAutorizacion.verificarToken,
   PagoEnvioController.pago_envio
 );
+router.post("/comprarEtiqueta", PaqueteriasController.comprarEtiqueta);
 
 module.exports = router;

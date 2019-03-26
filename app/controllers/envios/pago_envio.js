@@ -7,6 +7,7 @@ exports.pago_envio = (req, res) => {
   let usuario = req.usuario_token_correcto;
   let id_usuario = usuario._id;
   let { origen, destino, pagoDataInfo, tarifa_Paquete_Seleccionada } = req.body;
+
   let {
     paquete_longitud,
     paquete_anchura,
@@ -18,7 +19,8 @@ exports.pago_envio = (req, res) => {
     paqueteria: tarifa_Paquete_Seleccionada.paqueteria,
     servicio: tarifa_Paquete_Seleccionada.servicio,
     carrier_account_id: tarifa_Paquete_Seleccionada.carrier_account_id,
-    shipment_id: tarifa_Paquete_Seleccionada.shipment_id
+    shipment_id: tarifa_Paquete_Seleccionada.shipment_id,
+    rate_id: tarifa_Paquete_Seleccionada.id
   };
 
   let id_origen = "";
@@ -49,6 +51,7 @@ exports.pago_envio = (req, res) => {
                 servicio: envio.servicio,
                 carrier_account_id: envio.carrier_account_id,
                 shipment_id: envio.shipment_id,
+                rate_id: envio.rate_id,
                 paquete_longitud,
                 paquete_anchura,
                 paquete_altura,

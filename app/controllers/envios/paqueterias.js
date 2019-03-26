@@ -1,7 +1,7 @@
 "use strict";
-
+//AQUI ESTAN TODOS LOS METODOS DE EASY POST TANTO PARA COTIZAR COMO PARA COMPRAR UNA ORDEN
 const EasyPost = require("@easypost/api");
-
+//aqui esta el respectivo para cotizar con easy poast
 exports.cotizacion = (req, res) => {
   let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
   let origen = req.body.origen;
@@ -15,8 +15,8 @@ exports.cotizacion = (req, res) => {
     country: origen.countryCode,
     city: origen.city,
     state: origen.state,
-    zip: origen.postalCode
-    /*   phone: "2223344552" */ //consultar este campo con el ale 
+    zip: origen.postalCode,
+    phone: "2223344552" //el telefono es NECESARIO CHECARLO
   });
 
   fromAddress.save().then(() => {});
@@ -30,8 +30,8 @@ exports.cotizacion = (req, res) => {
     country: destino.countryCode,
     city: origen.city,
     state: destino.state,
-    zip: destino.postalCode
-    /* phone: "2223344552" */
+    zip: destino.postalCode,
+    phone: "2223344552"
   });
 
   toAddress.save().then(() => {});
@@ -66,17 +66,16 @@ exports.cotizacion = (req, res) => {
   });
 };
 
-exports.comprar = (req, res) => {
-  let { id_rate, id_shp } = req.query;
+exports.comprarEtiqueta = (req, res) => {
+  let { shipment_id, rate_id } = req.body;
 
-  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
+  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX); //se tiene que cambiar esa api key para que regrese la etiqueta  bien
 
-  api.Shipment.retrieve(id_shp).then(shipment_find => {
+  api.Shipment.retrieve(shipment_id).then(shipment_find => {
     shipment_find
-      .buy((rate = { id: id_rate }))
-      .then(compra => {
-        let compra_envio = compra.postage_label;
-        return res.send({ mensaje: compra_envio });
+      .buy({ id: rate_id })
+      .then(compraCompletadaEtiqueta => {
+        return res.send({ compraCompletadaEtiqueta ,"COMPLETADO":"SE COMPLETO"});
       })
       .catch(err => {
         return res.send({ err: err });

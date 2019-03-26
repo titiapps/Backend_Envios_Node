@@ -14,6 +14,7 @@ let EnviosSchema = new Schema({
   servicio: { type: String },
   carrier_account_id: { type: String },
   shipment_id: { type: String },
+  rate_id: { type: String },
   paquete_longitud: { type: Number },
   paquete_anchura: { type: Number },
   paquete_altura: { type: Number },
