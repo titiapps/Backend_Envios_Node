@@ -10,9 +10,15 @@ var PaqueteriasValidas = {
 let EnviosSchema = new Schema({
   o_origen: { type: Schema.Types.ObjectId, ref: "direccion" },
   o_destino: { type: Schema.Types.ObjectId, ref: "direccion" },
-  paqueteria: { type: String, enum: PaqueteriasValidas },
-  num_seg: { type: String },
-  etiqueta: { tye: String }
+  paqueteria: { type: String },
+  servicio: { type: String },
+  carrier_account_id: { type: String },
+  shipment_id: { type: String },
+  rate_id: { type: String },
+  paquete_longitud: { type: Number },
+  paquete_anchura: { type: Number },
+  paquete_altura: { type: Number },
+  paquete_peso: { type: Number }
 });
 
 EnviosSchema.plugin(mongovalidator, {

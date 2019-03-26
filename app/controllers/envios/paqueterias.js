@@ -1,12 +1,12 @@
 "use strict";
-
+//AQUI ESTAN TODOS LOS METODOS DE EASY POST TANTO PARA COTIZAR COMO PARA COMPRAR UNA ORDEN
 const EasyPost = require("@easypost/api");
-
+//aqui esta el respectivo para cotizar con easy poast
 exports.cotizacion = (req, res) => {
   let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
-  const origen = req.body.origen;
-  const destino = req.body.destino;
-  const paquete_ent = req.body.paquete;
+  let origen = req.body.origen;
+  let destino = req.body.destino;
+  let paquete = req.body.paquete;
 
   const fromAddress = new api.Address({
     company: origen.persona,
@@ -16,7 +16,7 @@ exports.cotizacion = (req, res) => {
     city: origen.city,
     state: origen.state,
     zip: origen.postalCode,
-    phone: "2223344552"
+    phone: "2223344552" //el telefono es NECESARIO CHECARLO
   });
 
   fromAddress.save().then(() => {});
@@ -37,10 +37,10 @@ exports.cotizacion = (req, res) => {
   toAddress.save().then(() => {});
 
   const parcel = new api.Parcel({
-    length: paquete_ent.longitud,
-    width: paquete_ent.anchura,
-    height: paquete_ent.altura,
-    weight: paquete_ent.peso
+    length: paquete.paquete_longitud,
+    width: paquete.paquete_anchura,
+    height: paquete.paquete_altura,
+    weight: paquete.paquete_peso
   });
 
   parcel.save().then(() => {});
@@ -66,17 +66,16 @@ exports.cotizacion = (req, res) => {
   });
 };
 
-exports.comprar = (req, res) => {
-  let { id_rate, id_shp } = req.query;
+exports.comprarEtiqueta = (req, res) => {
+  let { shipment_id, rate_id } = req.body;
 
-  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
+  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX); //se tiene que cambiar esa api key para que regrese la etiqueta  bien
 
-  api.Shipment.retrieve(id_shp).then(shipment_find => {
+  api.Shipment.retrieve(shipment_id).then(shipment_find => {
     shipment_find
-      .buy((rate = { id: id_rate }))
-      .then(compra => {
-        let compra_envio = compra.postage_label;
-        return res.send({ mensaje: compra_envio });
+      .buy({ id: rate_id })
+      .then(compraCompletadaEtiqueta => {
+        return res.send({ compraCompletadaEtiqueta ,"COMPLETADO":"SE COMPLETO"});
       })
       .catch(err => {
         return res.send({ err: err });
@@ -85,29 +84,27 @@ exports.comprar = (req, res) => {
   /*   console.log(ship); */
 };
 
-
-exports.verificarDireccion = (req,res) =>{
-
+exports.verificarDireccion = (req, res) => {
   let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
 
   const verifiableAddress = new api.Address({
-    verify: ['delivery'],
+    verify: ["delivery"],
     company: "Liverpool",
     street1: "Natal 580",
     street2: "",
     country: "MEX",
     city: "Gustavo A Madero",
     state: "CDMX",
-    zip: "07730",
+    zip: "07730"
   });
-  
-  verifiableAddress.save().then((addr) => {
+
+  verifiableAddress.save().then(addr => {
     // verifiableAddress is updated, and also passed into
     // the promise resolve.
-  return res.send({"mensaje":addr});
+    return res.send({ mensaje: addr });
     // 417 Montgomery Street
-  
-/*     console.log(addr.verifications); */
+
+    /*     console.log(addr.verifications); */
     /*
     { delivery:
      { success: true,
@@ -115,6 +112,4 @@ exports.verificarDireccion = (req,res) =>{
          } }
        */
   });
-
-
-}
+};
