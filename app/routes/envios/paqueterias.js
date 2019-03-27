@@ -14,5 +14,9 @@ router.post(
   PagoEnvioController.pago_envio
 );
 router.post("/comprarEtiqueta", PaqueteriasController.comprarEtiqueta);
+router.post(
+  "/guardarMovimientoEtiqueta",
+  PagoEnvioController.guardarMovimiento_Etiqueta
+);
 
 module.exports = router;
