@@ -56,9 +56,16 @@ exports.cotizacion = (req, res) => {
     if (s.rates.length > 0) {
       let tarifas = s.rates.filter(tarifa_valores => {
         if (tarifa_valores.currency === "MXN" && tarifa_valores.rate > 0.1) {
-          return tarifa_valores;
+          return tarifa_valores; //el 17%
         }
       });
+
+      for (let i = 0; i < tarifas.length; i++) {
+        console.log(tarifas[i].rate);
+        tarifas[i].rate = parseFloat(tarifas[i].rate * 1.17)
+          .toFixed(2)
+          .toString();
+      }
       return res.status(200).send({ tarifas });
     } else {
       return res.status(400).send({ message: "no hay tarifa" });
@@ -75,7 +82,10 @@ exports.comprarEtiqueta = (req, res) => {
     shipment_find
       .buy({ id: rate_id })
       .then(compraCompletadaEtiqueta => {
-        return res.send({ compraCompletadaEtiqueta ,"COMPLETADO":"SE COMPLETO"});
+        return res.send({
+          compraCompletadaEtiqueta,
+          COMPLETADO: "SE COMPLETO"
+        });
       })
       .catch(err => {
         return res.send({ err: err });

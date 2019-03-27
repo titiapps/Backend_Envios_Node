@@ -1,6 +1,7 @@
 let Direccion = require("../../models/direccion"); //modelo de Direccion
 let Pago = require("../../models/pago");
 let Envio = require("../../models/envio");
+let Movimiento = require("../../models/movimiento");
 
 exports.pago_envio = (req, res) => {
   //variables
@@ -132,6 +133,33 @@ let guardarEnvio = envio => {
       }
       resolve(envioGuardado);
     });
+  });
+};
+
+///* ============================================= */
+/* ============================================= */
+/* ============================================= */
+//ESTE METODO GUARDA YA LA ETIQUETA QUE NOS TRAJO EASY POST
+exports.guardarMovimiento_Etiqueta = (req, res) => {
+  let { id_usuario, id_envio, id_pago, etiqueta, num_guia } = req.body;
+
+  let movimiento_guardar = {
+    usuario: id_usuario,
+    envio: id_envio,
+    pago: id_pago,
+    etiqueta,
+    num_guia
+  };
+  let nuevoMovimiento = new Movimiento(movimiento_guardar);
+
+  nuevoMovimiento.save((err, movimientoGuardado) => {
+    if (err) {
+      return res.status(400).send({
+        mensaje: "Hubo un error al guardar el respectivo y poderoso movimiento",
+        err
+      });
+    }
+    return res.status(200).send({ movimientoGuardado });
   });
 };
 
