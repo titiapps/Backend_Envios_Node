@@ -21,8 +21,6 @@ routes.put(
   middlewareAutorizacion.verificarRoloUsuario,
   ControllerUsuario.actualizarUsuario
 );
-routes.get("/movimientousuario/:id",ControllerUsuario.usuarioMovimientos);
-/* RUTAS PARA PRUEBAS DE LOS MOVIMIENTOS QUE SE ESTAN TENIENDO DENTRO DEL SISTEMA */
 
 
 module.exports = routes;

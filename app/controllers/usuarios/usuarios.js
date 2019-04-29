@@ -64,11 +64,16 @@ exports.getUsuario = (req, res) => {
 };
 
 exports.usuarioMovimientos = (req, res) => {
+  let respuestaMovimientos = null;
   let { id } = req.params;
   Movimiento.find({ usuario: id })
-    .populate("envio").populate("pago")
-    .exec((err, respuestilla) => {
-      return res.send(respuestilla);
+    .populate("envio")
+    .populate("pago")
+    .exec((err, respuestaMovimientos) => {
+      respuestaMovimientos = respuestaMovimientos;
+    })
+    .finally(() => {
+      return res.send({ respuestaMovimientos });
     });
 };
 //Este metodo nos permite la creacion de Usuarios

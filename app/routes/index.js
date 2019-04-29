@@ -6,6 +6,7 @@ const rutasautorizacion = require("./autorizacion");
 const rutaspaqueterias = require("./envios/paqueterias");
 const rutaspagos = require("./pagos/pagos");
 const rutasmovimientos = require("./envios/movimientos");
+
 module.exports = {
   rutasprueba,
   rutasusuario,
