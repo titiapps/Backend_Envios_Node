@@ -7,9 +7,7 @@ router.get(
   "/buscarMovimiento/:id_movimiento",
   MovimientosController.regresarInformacionMovimiento
 );
-router.get(
-  "/buscarUsuarioMovimiento/:id_usuario",
-  MovimientosController.regresarUsuarioInfoPrueba
-);
+//este endpoint devuelte todo lo que haya hecho un usuario con ese numero de id
+router.get("/movimientousuario/:id", MovimientosController.usuarioMovimientos);
 
 module.exports = router;
