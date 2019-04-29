@@ -8,7 +8,8 @@ let MovimientoSchema = new Schema({
   envio: { type: Schema.Types.ObjectId, ref: "envio" },
   pago: { type: Schema.Types.ObjectId, ref: "pago" },
   etiqueta: { type: String },
-  num_guia: { type: String }
+  num_guia: { type: String },
+  fecha_movimiento: { type: Date }
 });
 
 MovimientoSchema.plugin(mongovalidator, {
