@@ -148,7 +148,8 @@ exports.guardarMovimiento_Etiqueta = (req, res) => {
     envio: id_envio,
     pago: id_pago,
     etiqueta,
-    num_guia
+    num_guia,
+    fecha_movimiento: new Date()
   };
   let nuevoMovimiento = new Movimiento(movimiento_guardar);
 

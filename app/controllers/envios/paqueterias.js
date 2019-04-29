@@ -3,6 +3,9 @@
 const EasyPost = require("@easypost/api");
 //aqui esta el respectivo para cotizar con easy poast
 exports.cotizacion = (req, res) => {
+  let usuario = req.usuario_token_correcto;
+  let telefono = usuario.telefono;
+
   let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
   let origen = req.body.origen;
   let destino = req.body.destino;
@@ -16,7 +19,7 @@ exports.cotizacion = (req, res) => {
     city: origen.city,
     state: origen.state,
     zip: origen.postalCode,
-    phone: "2223344552" //el telefono es NECESARIO CHECARLO
+    phone: telefono //el telefono es NECESARIO CHECARLO
   });
 
   fromAddress.save().then(() => {});
@@ -31,7 +34,7 @@ exports.cotizacion = (req, res) => {
     city: origen.city,
     state: destino.state,
     zip: destino.postalCode,
-    phone: "2223344552"
+    phone: telefono
   });
 
   toAddress.save().then(() => {});
