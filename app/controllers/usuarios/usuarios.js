@@ -3,6 +3,7 @@
 /* ================================================================= */
 
 let Usuario = require("../../models/usuario"); //modelo de Usuario
+let Movimiento = require("../../models/movimiento");
 const bcrypt = require("bcryptjs");
 
 //Esta funcion devuelve todos los usuarios que estan dados de alta en el sistema
@@ -42,6 +43,32 @@ exports.getUsuarios = (req, res) => {
           img_status: "https://http.cat/200"
         });
       });
+    });
+};
+//regresa los datos del perfil del usuario
+exports.getUsuario = (req, res) => {
+  let { id } = req.params;
+  console.log(id);
+  Usuario.findById(
+    id,
+    "nombre apellido_paterno apellido_materno email telefono rol activo "
+  ).exec((err, usuario_fin) => {
+    if (!usuario_fin) {
+      return res.send({ mensaje: "usuario no encontrado" });
+    }
+    if (err) {
+      return res.send({ err });
+    }
+    return res.send(usuario_fin);
+  });
+};
+
+exports.usuarioMovimientos = (req, res) => {
+  let { id } = req.params;
+  Movimiento.find({ usuario: id })
+    .populate("envio").populate("pago")
+    .exec((err, respuestilla) => {
+      return res.send(respuestilla);
     });
 };
 //Este metodo nos permite la creacion de Usuarios
@@ -201,7 +228,7 @@ exports.actualizarUsuario = (req, res) => {
     usuarioActualizar.activo =
       activo === undefined ? usuarioActualizar.activo : activo;
 
-      usuarioActualizar.telefono =
+    usuarioActualizar.telefono =
       telefono === undefined ? usuarioActualizar.telefono : telefono;
 
     usuarioActualizar.password =

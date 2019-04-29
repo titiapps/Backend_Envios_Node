@@ -1,10 +1,12 @@
 const jwt = require("jsonwebtoken");
 //Este middleware nos permite verificar que el token introducido es correcto
 exports.verificarToken = (req, res, next) => {
+ 
   let token = req.headers.authorization;
   /* console.log(token); */
   jwt.verify(token, process.env.SEED, (error, datos) => {
     if (error) {
+      console.log(error);
       res.status(401).send({
         ok: false,
         error,
