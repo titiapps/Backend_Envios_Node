@@ -19,4 +19,12 @@ router.post(
   PagoEnvioController.guardarMovimiento_Etiqueta
 );
 
+
+router.get(
+  "/regresarEtiqueta",
+  PaqueteriasController.convertirPdf
+);
+
+
+
 module.exports = router;
