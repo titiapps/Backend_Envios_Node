@@ -141,13 +141,23 @@ let guardarEnvio = envio => {
 /* ============================================= */
 //ESTE METODO GUARDA YA LA ETIQUETA QUE NOS TRAJO EASY POST
 exports.guardarMovimiento_Etiqueta = (req, res) => {
-  let { id_usuario, id_envio, id_pago, etiqueta, num_guia } = req.body;
+  let {
+    id_usuario,
+    id_envio,
+    id_pago,
+    etiqueta,
+    num_guia,
+    etiqueta_pdf
+  } = req.body;
+
+  console.log("la etiqueta pdf es " + etiqueta_pdf);
 
   let movimiento_guardar = {
     usuario: id_usuario,
     envio: id_envio,
     pago: id_pago,
     etiqueta,
+    etiqueta_pdf,
     num_guia,
     fecha_movimiento: new Date()
   };

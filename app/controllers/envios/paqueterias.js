@@ -85,9 +85,13 @@ exports.comprarEtiqueta = (req, res) => {
     shipment_find
       .buy({ id: rate_id })
       .then(compraCompletadaEtiqueta => {
-        return res.send({
-          compraCompletadaEtiqueta,
-          COMPLETADO: "SE COMPLETO"
+        //aqui esta la parte para sacar la etiqueta para pdf
+        sacarLinkPdf(shipment_id).then(etiqueta_pdf => {
+          return res.send({
+            compraCompletadaEtiqueta,
+            COMPLETADO: "SE COMPLETO",
+            etiqueta_pdf
+          });
         });
       })
       .catch(err => {
@@ -124,5 +128,26 @@ exports.verificarDireccion = (req, res) => {
        errors: [],
          } }
        */
+  });
+};
+
+exports.convertirPdf = (req, res) => {
+  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
+};
+
+const sacarLinkPdf = shipment_id => {
+  let api = new EasyPost(process.env.API_KEY_PAQ_SANDBOX);
+
+  return new Promise((resolve, reject) => {
+    api.Shipment.retrieve(shipment_id).then(shipment => {
+      shipment
+        .convertLabelFormat("PDF")
+        .then(conversion => {
+          resolve(conversion.postage_label.label_pdf_url);
+        })
+        .catch(err => {
+          reject("Hubo un problema al recuperar el PDF", err);
+        });
+    });
   });
 };
