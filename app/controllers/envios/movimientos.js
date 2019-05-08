@@ -26,7 +26,8 @@ exports.usuarioMovimientos = (req, res) => {
 //este se usa para darle un reporte a josafad
 exports.movimientosFecha = (req, res) => {
   let { fecha_inicio, fecha_fin } = req.body;
-
+  console.log("fecha_inicio", fecha_inicio);
+  console.log("fecha_fin", fecha_fin);
   Movimiento.find({
     fecha_movimiento: {
       $gte: fecha_inicio,
@@ -43,10 +44,13 @@ exports.movimientosFecha = (req, res) => {
           { path: "envio.o_destino", model: "direccion" }
         ],
         (error_dir, respdi) => {
+          if (!respdi) {
+            return res.send([]);
+          }
           if (error_dir) {
             return res.send({ error_dir });
           }
-          return res.send(respdi);
+          return res.send({  respdi });
         }
       );
     });

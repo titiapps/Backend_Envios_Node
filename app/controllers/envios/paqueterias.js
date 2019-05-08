@@ -65,9 +65,9 @@ exports.cotizacion = (req, res) => {
 
       for (let i = 0; i < tarifas.length; i++) {
         console.log(tarifas[i].rate);
-        tarifas[i].rate = parseFloat(tarifas[i].rate * 1.2)
-          .toFixed(2)
-          .toString();
+        tarifas[i].rate = Math.round(
+          parseFloat(tarifas[i].rate * 1.2).toFixed(2)
+        ).toString();
       }
       return res.status(200).send({ tarifas });
     } else {
