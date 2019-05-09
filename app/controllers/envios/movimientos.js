@@ -33,9 +33,13 @@ exports.movimientosFecha = (req, res) => {
       $gte: fecha_inicio,
       $lt: fecha_fin
     }
-  })
-    .populate("pago")
-    .populate("envio")
+  },"fecha_movimiento num_guia etiqueta_pdf")
+    .populate("usuario","nombre apellido_paterno apellido_materno email telefono")
+    .populate("pago","forma_pago monto")
+    .populate(
+      "envio",
+      "o_destino o_origen paquete_altura paquete_anchura paquete_longitud paquete_peso paqueteria servicio"
+    )
     .exec((err, movimientos) => {
       Envio.populate(
         movimientos,
@@ -50,7 +54,7 @@ exports.movimientosFecha = (req, res) => {
           if (error_dir) {
             return res.send({ error_dir });
           }
-          return res.send({  respdi });
+          return res.send({ movimientos });
         }
       );
     });
