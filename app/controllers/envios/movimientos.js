@@ -16,7 +16,24 @@ exports.regresarInformacionMovimiento = (req, res) => {
 exports.usuarioMovimientos = (req, res) => {
   let { id } = req.params;
   traerMovimientos(id)
-    .then(movimientos => {
+    .then(movimientos_enviar => {
+      let movimientos = movimientos_enviar;
+
+      for (let i = 0; i < movimientos.length; i++) {
+        movimientos[i].envio.paquete_longitud = Math.round(
+          movimientos[i].envio.paquete_longitud * 2.54
+        );
+        movimientos[i].envio.paquete_anchura = Math.round(
+          movimientos[i].envio.paquete_anchura * 2.54
+        );
+        movimientos[i].envio.paquete_altura = Math.round(
+          movimientos[i].envio.paquete_altura * 2.54
+        );
+        movimientos[i].envio.paquete_peso = Math.round(
+          movimientos[i].envio.paquete_peso / 0.035274
+        );
+      }
+
       return res.status(200).send(movimientos);
     })
     .catch(err => {
@@ -28,33 +45,57 @@ exports.movimientosFecha = (req, res) => {
   let { fecha_inicio, fecha_fin } = req.body;
   console.log("fecha_inicio", fecha_inicio);
   console.log("fecha_fin", fecha_fin);
-  Movimiento.find({
-    fecha_movimiento: {
-      $gte: fecha_inicio,
-      $lt: fecha_fin
-    }
-  },"fecha_movimiento num_guia etiqueta_pdf")
-    .populate("usuario","nombre apellido_paterno apellido_materno email telefono")
-    .populate("pago","forma_pago monto")
+  Movimiento.find(
+    {
+      fecha_movimiento: {
+        $gte: fecha_inicio,
+        $lt: fecha_fin
+      }
+    },
+    "fecha_movimiento num_guia etiqueta_pdf"
+  )
+    .populate(
+      "usuario",
+      "nombre apellido_paterno apellido_materno email telefono"
+    )
+    .populate("pago", "forma_pago monto")
     .populate(
       "envio",
       "o_destino o_origen paquete_altura paquete_anchura paquete_longitud paquete_peso paqueteria servicio"
     )
-    .exec((err, movimientos) => {
+    .exec((err, movimientos_temp) => {
       Envio.populate(
-        movimientos,
+        movimientos_temp,
         [
           { path: "envio.o_origen", model: "direccion" },
           { path: "envio.o_destino", model: "direccion" }
         ],
-        (error_dir, respdi) => {
-          if (!respdi) {
+        (error_dir, movimientos_enviar) => {
+          if (!movimientos_enviar) {
             return res.send([]);
           }
           if (error_dir) {
             return res.send({ error_dir });
           }
-          return res.send({ movimientos });
+
+          if (movimientos_enviar) {
+            let movimientos = movimientos_enviar;
+            for (let i = 0; i < movimientos.length; i++) {
+              movimientos[i].envio.paquete_longitud = Math.round(
+                movimientos[i].envio.paquete_longitud * 2.54
+              );
+              movimientos[i].envio.paquete_anchura = Math.round(
+                movimientos[i].envio.paquete_anchura * 2.54
+              );
+              movimientos[i].envio.paquete_altura = Math.round(
+                movimientos[i].envio.paquete_altura * 2.54
+              );
+              movimientos[i].envio.paquete_peso = Math.round(
+                movimientos[i].envio.paquete_peso / 0.035274
+              );
+            }
+            return res.send({ movimientos });
+          }
         }
       );
     });
