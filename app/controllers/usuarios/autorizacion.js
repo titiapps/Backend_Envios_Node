@@ -18,7 +18,7 @@ exports.login = (req, res) => {
     if (!usuario_bus) {
       return res.status(400).send({
         ok: false,
-        mensaje: "Credenciales Incorrectas -  email",
+        mensaje: "Credenciales Incorrectas - email",
         error: err,
         img_status: "https://http.cat/400"
       });
