@@ -12,15 +12,6 @@ exports.getUsuarios = (req, res) => {
   let desde = req.query.desde || 0;
   desde = Number(desde);
 
-  const transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "20334252fcd8b3",
-      pass: "20e4d5b15db4d2"
-    }
-  });
-
   //DEVUELVE SOLO LOS CAMPOS QUE YO LE ESTOY INDICANDO
   Usuario.find(
     {},
