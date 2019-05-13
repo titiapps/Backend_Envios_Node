@@ -4,12 +4,22 @@
 
 let Usuario = require("../../models/usuario"); //modelo de Usuario
 let Movimiento = require("../../models/movimiento");
+let emailController = require("../../controllers/email/email");
 const bcrypt = require("bcryptjs");
 
 //Esta funcion devuelve todos los usuarios que estan dados de alta en el sistema
 exports.getUsuarios = (req, res) => {
   let desde = req.query.desde || 0;
   desde = Number(desde);
+
+  const transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: "20334252fcd8b3",
+      pass: "20e4d5b15db4d2"
+    }
+  });
 
   //DEVUELVE SOLO LOS CAMPOS QUE YO LE ESTOY INDICANDO
   Usuario.find(
@@ -60,6 +70,20 @@ exports.getUsuario = (req, res) => {
       return res.send({ err });
     }
     return res.send(usuario_fin);
+  });
+};
+
+exports.sendRecovery = (req, res) =>{
+  let {email} = req.params;
+  console.log(email);
+  Usuario.findOne(email).exec ((err, user) =>{
+    if (!user) {
+      return res.send({ mensaje: "usuario no encontrado" });
+    }
+    if (err) {
+      return res.send({ err });
+    }
+    return res.send(user.email);
   });
 };
 
