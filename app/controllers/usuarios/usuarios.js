@@ -64,10 +64,10 @@ exports.getUsuario = (req, res) => {
   });
 };
 
-exports.sendRecovery = (req, res) =>{
-  let {email} = req.params;
+exports.sendRecovery = (req, res) => {
+  let { email } = req.params;
   console.log(email);
-  Usuario.findOne(email).exec ((err, user) =>{
+  Usuario.findOne(email).exec((err, user) => {
     if (!user) {
       return res.send({ mensaje: "usuario no encontrado" });
     }
@@ -197,7 +197,11 @@ exports.eliminarUsuario = (req, res) => {
 
 //Funcion para actualizar los datos de los usuarios
 exports.actualizarUsuario = (req, res) => {
+console.log("entrando como dios");
+ 
   let { id } = req.params;
+  console.log("EL ID ES" + id);
+  console.log("LA DATA ES " ,req.body);
   let {
     nombre,
     apellido_paterno,
@@ -208,6 +212,8 @@ exports.actualizarUsuario = (req, res) => {
     rol,
     activo
   } = req.body;
+
+
 
   Usuario.findById(id, (err, usuarioActualizar) => {
     if (err) {

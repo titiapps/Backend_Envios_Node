@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 exports.verificarToken = (req, res, next) => {
  
   let token = req.headers.authorization;
-  /* console.log(token); */
+  console.log("EL TOKEN ES ");
+   console.log(token); 
   jwt.verify(token, process.env.SEED, (error, datos) => {
     if (error) {
       console.log(error);
